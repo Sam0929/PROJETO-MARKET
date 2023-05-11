@@ -3,7 +3,7 @@
 
 int main(){
 
-int senha = 1234, t=0;
+int senha = 1234, t=3;
 
 
 printf("---------------------\n\n");
@@ -17,12 +17,16 @@ printf("\n\n---------------------\n\n");
     if(senha == 1234)
       {
         printf("\nSenha correta");
+        break;
       }
-      else
+      else{
         printf("\nSenha incorreta");
-        t++;
+        printf("\nVoce tem mais %d tentativas", t-1);
+        }
+        t--;
 
-} while (t<3);
+
+} while (t>0);
 
 
 
