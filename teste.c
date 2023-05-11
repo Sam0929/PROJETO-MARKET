@@ -2,8 +2,10 @@
 #include <stdlib.h>
 
 int main(){
-
-int senha = 1234, t=0;
+int senha;
+int t=0;
+char tent[2][5] = {"DUAS"
+                    ,"UMA"};
 
 
 printf("---------------------\n\n");
@@ -14,14 +16,18 @@ printf("\n\n---------------------\n\n");
       printf("\nDigite sua senha: ");
       scanf("%d", &senha);
 
-    if(senha == 1234)
+    if(senha == 1233123214)
       {
         printf("\nSenha correta");
+        break;
       }
       else
         printf("\nSenha incorreta");
+        if(t<2)
+        {
+            printf("\nVoce tem mais %s tentativas", tent [t]);
+        }
         t++;
-
 } while (t<3);
 
 
