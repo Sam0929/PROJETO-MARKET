@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define SENHA_CORRETA "1234"
 
 int main(){
-char senha [20];
+char senha [20], confirmar;
 int t=0, i, vendas_efetuadas = 0, cont = 0;
 char tent[2][5] = {"DUAS","UMA"};
 float valor_venda, valor_total_venda = 0.0, aux = 200; 
@@ -15,7 +16,7 @@ printf("---------------------------------------------------------------------\n\
 printf("\n                           SEJA BEM-VINDO!\n");
 printf("\n\n---------------------------------------------------------------------\n\n");
 
- do {
+ do {                                                                                                           // Lógica para verificar a senha.
       printf("\n\nDigite sua senha: ");
       scanf("%s", senha);
 
@@ -45,53 +46,64 @@ printf("\n\n--------------------------------------------------------------------
     
     printf ("---------------------INSERCAO DOS ITENS VENDIDOS---------------------\n\n");
 
+    do{
+            do{
+                
+                printf("Digite o valor da venda %d (0 para encerrar): ", vendas_efetuadas + 1);                       // Inserção dos valores da venda.
+                scanf("%f", &valor_venda);
+
+                if (valor_venda != 0.0) {
+                    if (valor_venda == -1.0) 
+                    {
+                        printf("Último valor incorreto. Será desconsiderado.\n");
+                    } 
+                    else 
+                    {
+                        valor_total_venda += valor_venda;
+                        vendas_efetuadas++;
+                    }
+                }
+
+              } while (valor_venda != 0.0);                                                                  
+        
+        printf ("Deseja realmente finalizar a venda? (S/N): ");                                  // Lógica para confirmar a finalização da venda.
+        
+        getchar();
+        confirmar = getchar();
+        confirmar = toupper(confirmar);                                                         //
       
-      do{
-          
-          printf("Digite o valor da venda %d (0 para encerrar): ", vendas_efetuadas + 1);
-          scanf("%f", &valor_venda);
-
-          if (valor_venda != 0.0) {
-              if (valor_venda == -1.0) 
-              {
-                  printf("Último valor incorreto. Será desconsiderado.\n");
-              } 
-              else 
-              {
-                  valor_total_venda += valor_venda;
-                  vendas_efetuadas++;
-              }
-          }
-
-        } while (valor_venda != 0.0);
-
+      } while (confirmar != 'S');
+       
         printf("\n\nVenda finalizada com %d itens\n", vendas_efetuadas);
         printf("\n\nValor total das vendas: R$ %.2f\n", valor_total_venda);
         
         
-      
+      int nat =  valor_total_venda/aux;
       
       do {
 
-            int nat = (int) valor_total_venda/aux;
+            nat =  valor_total_venda/aux;
             
 
-            if ( nat >= 1)
+            if ( nat == 1)
             {
-              printf("\n%d notas de R$ %.2f\n", nat, aux);
+              if (aux != 0.5) printf("\n%d Nota de R$ %.2f\n", nat, aux);
+              else printf("\n%d Moeda de R$ %.2f\n", nat, aux);
               valor_total_venda = valor_total_venda - aux*nat;
             }
-
-            if (aux == 0.5 && valor_total_venda != 0)
+            
+            else
             {
-              int rea = (float) valor_total_venda/aux;
-              printf("\n%d notas de R$ %.2f\n", rea, aux);
-              valor_total_venda = valor_total_venda - aux*rea;
+                if(nat>1)
+                {
+                    if (aux != 0.5) printf("\n%d Notas de R$ %.2f\n", nat, aux);
+              	    else printf("\n%d Moedas de R$ %.2f\n", nat, aux);
+                    valor_total_venda = valor_total_venda - aux*nat;
+                }
             }
-          
-              
-              if (cont<2)
-              {
+
+              if (cont<2)                                                                        // Lógica para alterar o aux, para que o programa possa calcular as notas de 100, 50, 10, 5, 1 e a moeda de 0.5.
+              {                                     
                 aux = aux/2;
                 cont++;
               }
