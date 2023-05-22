@@ -9,7 +9,7 @@ int main(){
 char senha [20], confirmar;
 int t=0, i, vendas_efetuadas = 0, cont = 0;
 char tent[2][5] = {"DUAS","UMA"};
-float valor_venda, valor_total_venda = 0.0, aux = 200; 
+float valor_venda,errado, valor_total_venda = 0.0, aux = 200, valor_pago, troco; 
 
 
 printf("---------------------------------------------------------------------\n\n");
@@ -48,19 +48,28 @@ printf("\n\n--------------------------------------------------------------------
 
     do{
             do{
+                if (valor_venda != -1.0) 
                 
-                printf("Digite o valor da venda %d (0 para encerrar): ", vendas_efetuadas + 1);                       // Inserção dos valores da venda.
-                scanf("%f", &valor_venda);
-
+                {
+                  printf("Digite o valor da venda %d (0 para encerrar): ", vendas_efetuadas + 1);                       // Inserção dos valores da venda.
+                  scanf("%f", &valor_venda);
+                }
+              
                 if (valor_venda != 0.0) {
+                  
                     if (valor_venda == -1.0) 
                     {
-                        printf("Último valor incorreto. Será desconsiderado.\n");
+                        printf("Ultimo valor incorreto. Sera desconsiderado.\n");
+                        valor_total_venda -= errado;
+                        vendas_efetuadas--;
+                        printf("Digite novamente o valor da venda %d (0 para encerrar): ", vendas_efetuadas + 1);
+                        scanf("%f", &valor_venda);    
                     } 
                     else 
                     {
                         valor_total_venda += valor_venda;
                         vendas_efetuadas++;
+                        errado = valor_venda;
                     }
                 }
 
@@ -73,60 +82,82 @@ printf("\n\n--------------------------------------------------------------------
         confirmar = toupper(confirmar);                                                         //
       
       } while (confirmar != 'S');
-       
-        printf("\n\nVenda finalizada com %d itens\n", vendas_efetuadas);
-        printf("\n\nValor total das vendas: R$ %.2f\n", valor_total_venda);
-        
-        
-      int nat =  valor_total_venda/aux;
-      
-      do {
-
-            nat =  valor_total_venda/aux;
             
-
-            if ( nat == 1)
+            if (vendas_efetuadas > 1) 
             {
-              if (aux != 0.5) printf("\n%d Nota de R$ %.2f\n", nat, aux);
-              else printf("\n%d Moeda de R$ %.2f\n", nat, aux);
-              valor_total_venda = valor_total_venda - aux*nat;
+              printf("\n\nVenda finalizada com %d itens\n", vendas_efetuadas);
             }
             
-            else
+            else 
             {
-                if(nat>1)
-                {
-                    if (aux != 0.5) printf("\n%d Notas de R$ %.2f\n", nat, aux);
-              	    else printf("\n%d Moedas de R$ %.2f\n", nat, aux);
-                    valor_total_venda = valor_total_venda - aux*nat;
-                }
+              printf("\n\nVenda finalizada com %d item\n", vendas_efetuadas);
             }
 
-              if (cont<2)                                                                        // Lógica para alterar o aux, para que o programa possa calcular as notas de 100, 50, 10, 5, 1 e a moeda de 0.5.
-              {                                     
-                aux = aux/2;
-                cont++;
-              }
-              else
-              {
-                if (cont%2 == 0)
-                {
-                aux = aux/5;
-                }
+        printf("\n\nVenda finalizada!!!\n");
 
-                else 
-                {
-                aux = aux/2;
-                }
-                cont++;
-              }        
+        printf("\n\nValor Total: R$ %.2f\n", valor_total_venda);
+
+        printf("\n\nValor Pago: R$ ");                                                                           // Inserção do valor pago pelo cliente.
+        
+        scanf ("%f", &valor_pago);
+
+        troco = valor_pago - valor_total_venda;
+
+        if ( troco != 0) 
+        
+        {
+
+          printf("\n\nTroco: R$ %.2f\n", troco);
+        
+          int nat =  troco/aux;
           
-          } while (valor_total_venda != 0.0);
+          do {
 
-        
+                nat =  troco/aux;
+              
+                if ( nat == 1)
+                {
+                  if (aux > 1) printf("\n%d Nota de R$ %.2f\n", nat, aux);
+                  else printf("\n%d Moeda de R$ %.2f\n", nat, aux);
+                  troco -= aux*nat;
+                }
+                
+                {
+                    if(nat>1)
+                    {
+                        if (aux > 1) printf("\n%d Notas de R$ %.2f\n", nat, aux);
+                        else printf("\n%d Moedas de R$ %.2f\n", nat, aux);
+                        troco -= aux*nat;
+                    }
+                }
 
+                  if (cont<2)                                                                        // Lógica para alterar o aux, para que o programa possa calcular as notas de 100, 50, 10, 5, 1 e a moeda de 0.5.
+                  {                                     
+                    aux = aux/2;
+                    cont++;
+                  }
+                  else
+                  {
+                    if (cont%2 == 0)
+                    {
+                    aux = aux/5;
+                    }
 
-    
+                    else 
+                    {
+                    aux = aux/2;
+                    }
+                    cont++;
+                  }        
+              
+              } while (troco != 0.0);
+
+        }
+
+        else 
+        {
+          printf("\n\nNAO HA TROCO\n");
+        }
 
 
   return 0;
