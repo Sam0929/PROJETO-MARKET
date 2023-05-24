@@ -40,7 +40,8 @@ printf("\n\n--------------------------------------------------------------------
 
     printf("\nSenha correta \n\nCaixa Aberto!!!\n\n");
 
-  int N200 = 2, N100 = 4, N50 = 6, N10 = 10, N5 = 10, N1 = 20, N05 = 20;
+  float Cedulas [7] = {200, 100, 50, 10, 5, 1, 0.5};
+  int Qcedulas [7] = {2, 4, 6, 10, 10, 20, 20};
 
     printf ("---------------------INSERCAO DOS ITENS VENDIDOS---------------------\n\n");
 
@@ -111,131 +112,23 @@ printf("\n\n--------------------------------------------------------------------
 
           do {
                 nat =  troco/aux;
-
                 if ( nat == 1)
                 {
-                    if (aux > 1)
-                    {
-                      if(N200 > 0 && aux == 200)
-                        {
-                        N200 -= nat;
-                        }
-                      else
-                      {
-                          if(N100 > 0 && aux == 100)
-                            {
-                            N100 -= nat;
-                            }
-                          else
-                          {
-                            if(N50 > 0 && aux == 50)
-                              {
-                              N50 -= nat;
-                              }
-
-                              else
-                              {
-                                if(N10 > 0 && aux == 10)
-                                  {
-                                  N10 -= nat;
-                                  }
-                                else
-                                {
-                                  if(N5 > 0 && aux == 5)
-                                  {
-                                    N5 -= nat;
-                                  }
-                                }
-                              }
-                          }
-                      }
-                    
-                    printf("\n%d Nota de R$ %.2f\n", nat, aux);
-                    
-                    }
-                    else
-                    {
-                          if (N1 > 0 && aux == 1)
-                          {
-                              N1 -= nat;
-                          }
-
-                          else
-                          {
-                            if (N05>0)
-                            {
-                                N05 -= nat;
-                            }
-                          }
-                      printf("\n%d Moeda de R$ %.2f\n", nat, aux);
-                    }
-                    troco -= aux*nat;
+                  if (aux > 1) printf("\n%d Nota de R$ %.2f\n", nat, aux);
+                  else printf("\n%d Moeda de R$ %.2f\n", nat, aux);
+                  Qcedulas [cont] -= nat;
                 }
-
                 else
                 {
-                  if(nat>1)
-                  {
-                            if (aux > 1)
-                            {
-                              if(N200 > 0 && aux == 200)
-                              {
-                                
-                                N200 -= nat;
-                              }
-                              else
-                              {
-                                if(N100 > 0 && aux == 100)
-                                {
-                               
-                                  N100 -= nat;
-                                }
-                                else
-                                {
-                                  if(N50 > 0 && aux == 50)
-                                  {
-                                    
-                                    N50 -= nat;
-                                  }
-                                  else
-                                    {
-                                      if(N10 > 0 && aux == 10)
-                                      {
-                                        N10 -= nat;
-                                      }
-                                      else
-                                      {
-                                        if(N5 > 0 && aux == 5)
-                                          {
-                                            N5 -= nat;
-                                          }
-                                      }
-                                    }
-                                }
-                              }
-                           printf("\n%d Notas de R$ %.2f\n", nat, aux);
-                          }
-
-
-                          else
-                          {
-                                if (N1 > 0 && aux == 1)
-                                {    
-                                    N1 -= nat;
-                                }
-
-                                else
-                                {
-                                    if (N05>0 && aux == 0.5)
-                                    {
-                                        N05 -= nat;
-                                    }
-                                }
-
-                          }
-                      troco -= aux*nat;
-                  }
+                 if(nat>1)
+                    {
+                        if (aux > 1) printf("\n%d Notas de R$ %.2f\n", nat, aux);
+                        else printf("\n%d Moedas de R$ %.2f\n", nat, aux);
+                        Qcedulas [cont] -= nat;
+                    }
                 }
+
+                troco -= aux*nat;
 
                   if (cont<2)                                                                        // Lógica para alterar o aux, para que o programa possa calcular as notas de 100, 50, 10, 5, 1 e a moeda de 0.5.
 
@@ -262,21 +155,17 @@ printf("\n\n--------------------------------------------------------------------
               }while (troco != 0.0);
 
       }
-      
+
       else
         {
           printf("\n\nNAO HA TROCO\n");
         }
 
-        printf ("\n%d", N200);
-        printf ("\n%d", N100);
-        printf ("\n%d", N50);
-         printf ("\n%d", N10);
-          printf ("\n%d", N5);
-           printf ("\n%d", N1);
-            printf ("\n%d", N05);
 
-
+        for (i=0; i<7; i++)
+        {
+          printf ("\n%d", Qcedulas [i]);
+        }
   return 0;
 
 
