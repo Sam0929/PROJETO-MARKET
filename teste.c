@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+#include <ctype.h>                 // Bibliotecas utilizadas no projeto.
 
 #define SENHA_CORRETA "212223"
 
 
 
-float valor_caixa (float *Cedulas, int *Qcedulas) // Função para calcular o valor total do caixa.) 
+float valor_caixa (float *Cedulas, int *Qcedulas)                      // Função para calcular o valor total do caixa.
 
 {
 
@@ -87,10 +87,13 @@ int main()
 
     } while (strcmp(senha, SENHA_CORRETA) != 0);
 
+
     printf("\nSenha correta \n\nCaixa Aberto!!!\n\n");
 
-  float Cedulas [7] = {200, 100, 50, 10, 5, 1, 0.5};
+
+  float Cedulas [7] = {200, 100, 50, 10, 5, 1, 0.5};                                                        // Vetores para armazenar as cédulas e a quantidade de cada uma, iniciados com os valores padrões, como estimulado no projeto.
   int Qcedulas [7] = {2, 4, 6, 10, 10, 20, 20}, Qcedulas_Save [7];
+ 
   do{
       printf ("---------------------INSERCAO DOS ITENS VENDIDOS---------------------\n\n");
 
@@ -108,7 +111,7 @@ int main()
                   if (valor_venda != -1.0)
 
                   {
-                    printf("\nDigite o valor do item %d (0 para encerrar): ", itens_vendidos + 1);                       // Inserção dos valores da venda.
+                    printf("\nDigite o valor do item %d (0 para encerrar): ", itens_vendidos + 1);                       // Inserção dos valores dos itens.
                     scanf("%f", &valor_venda);
                   }
 
@@ -177,7 +180,7 @@ int main()
         if ( troco != 0)
         {
 
-            printf("\n\nTroco: R$ %.2f\n", troco);
+            printf("\n\nTroco: R$ %.2f\n", troco);                                                                    // Lógica para calcular o troco, a quantidade de cada cédula.
 
             int nat =  troco/aux;
 
@@ -253,31 +256,30 @@ int main()
 
     }while (confirmar != 'S');
 
-  system("cls");
+    system("cls");
+                                                                                          // Finalização do programa e fechamento do caixa.
+    printf("\nFechamento do Caixa!!!\n");
+    printf("\n\nNumero de clientes atendidos: %d\n", vendas_efetuadas);
+    printf("\n\nValor total das vendas: R$ %.2f\n", valor_total_das_vendas);
 
-  printf("\nFechamento do Caixa!!!\n");
-  printf("\n\nNumero de clientes atendidos: %d\n", vendas_efetuadas);
-  printf("\n\nValor total das vendas: R$ %.2f\n", valor_total_das_vendas);
-
-  float valor = valor_caixa (Cedulas, Qcedulas);
-  
-
-  printf("\n\nValor total em caixa: R$ %.2f\n", valor);
-
-  printf("\n\nQuantidade total de cedulas no caixa:\n");
-  
-  for (i=0; i<7; i++)
-          
-          {
-            if (i<4)
-            printf ("\n%d Notas de %.2f", Qcedulas [i], Cedulas [i]);
-            else
-            printf ("\n%d Moedas de %.2f", Qcedulas [i], Cedulas [i]);
-          }
-
-  printf (" \n\nAte Breve!!!\n\n");
+    float valor = valor_caixa (Cedulas, Qcedulas);
     
-    return 0;
+    printf("\n\nValor total em caixa: R$ %.2f\n", valor);
 
+    printf("\n\nQuantidade total de cedulas no caixa:\n");
+    
+    for (i=0; i<7; i++)
+            
+            {
+              if (i<4)
+              printf ("\n%d Nota(s) de %.2f", Qcedulas [i], Cedulas [i]);
+              else
+              printf ("\n%d Moeda(s) de %.2f", Qcedulas [i], Cedulas [i]);
+            }
+
+    printf (" \n\nAte Breve!!!\n\n");
+      
+  
+  return 0;
 
 }
