@@ -112,23 +112,45 @@ printf("\n\n--------------------------------------------------------------------
 
           do {
                 nat =  troco/aux;
+                if((Qcedulas [cont]) - (nat) < 0) nat = Qcedulas [cont];
+                
                 if ( nat == 1)
                 {
-                  if (aux > 1) printf("\n%d Nota de R$ %.2f\n", nat, aux);
-                  else printf("\n%d Moeda de R$ %.2f\n", nat, aux);
-                  Qcedulas [cont] -= nat;
+                  if (aux > 1)
+                  {
+                    printf("\n%d Nota de R$ %.2f\n", nat, aux);
+                    troco -= aux*nat;
+                    Qcedulas [cont] -= nat;
+                  } 
+                  else
+                  {
+                    
+                    printf("\n%d Moeda de R$ %.2f\n", nat, aux);
+                    troco -= aux*nat;
+                    Qcedulas [cont] -= nat;
+                    
+                  } 
                 }
                 else
                 {
                  if(nat>1)
                     {
-                        if (aux > 1) printf("\n%d Notas de R$ %.2f\n", nat, aux);
-                        else printf("\n%d Moedas de R$ %.2f\n", nat, aux);
-                        Qcedulas [cont] -= nat;
+                        if (aux > 1)
+                        { 
+                          printf("\n%d Notas de R$ %.2f\n", nat, aux);
+                          troco -= aux*nat;
+                          Qcedulas [cont] -= nat;
+                        }
+                        else 
+                        {
+                            printf("\n%d Moedas de R$ %.2f\n", nat, aux);
+                            troco -= aux*nat;
+                            Qcedulas [cont] -= nat;
+                        }
                     }
                 }
 
-                troco -= aux*nat;
+               
 
                   if (cont<2)                                                                        // Lógica para alterar o aux, para que o programa possa calcular as notas de 100, 50, 10, 5, 1 e a moeda de 0.5.
 
