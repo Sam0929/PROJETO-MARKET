@@ -56,7 +56,7 @@ float calcula_aux (float aux, int cont)
 int main()
 {
   char senha [20], confirmar;
-  int t=0, i, itens_vendidos = 0, vendas_efetuadas = 0, cont = 0;
+  int t=0, i, itens_vendidos = 0, vendas_efetuadas = 0, cont = 0, cont2 = 0;
   char tent[2][5] = {"DUAS","UMA"};
   float valor_venda, errado, valor_total_venda = 0.0, aux = 200, valor_pago, troco, valor_total_das_vendas = 0;
 
@@ -167,6 +167,33 @@ int main()
           {
             printf("\n\nValor Pago: R$ ");                                                                           // Inserção do valor pago pelo cliente.
             scanf ("%f", &valor_pago);
+            float valor = valor_pago;
+            do 
+            { 
+              if (cont == 7 || valor < 0) 
+              {
+                cont = 0;
+                aux = 200;
+                valor = valor_pago;
+                printf ("\n\nValor invalido. Insira novamente: ");
+              }
+              
+              if(valor >= aux)
+              {
+                printf ("\n\n Insira a quantidade de cedulas de R$ %.2f: ", aux);
+                scanf ("%d", &cont2);
+                valor -= cont2*aux;
+                Qcedulas [cont] += cont2;
+              }
+              aux = calcula_aux (aux, cont);
+              cont++;
+             
+            } while (valor != 0);
+            
+            aux = 200;
+            cont = 0;
+            cont2 = 0;
+
             vendas_efetuadas++;
             troco = valor_pago - valor_total_venda;
             valor_total_venda = 0;
